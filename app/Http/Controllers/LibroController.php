@@ -3,46 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Libro;
+use App\Models\Autor;  
 
 class LibroController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Libro::with('autor')->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'genero' => 'required',
+            'autor_id' => 'required|exists:autors,id'
+        ]);
+
+        return Libro::create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Libro $libro)
     {
-        //
+        return $libro->load('autor');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Libro $libro)
     {
-        //
+        $libro->update($request->all());
+        return $libro;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Libro $libro)
     {
-        //
+        $libro->delete();
+        return response()->noContent();
     }
 }

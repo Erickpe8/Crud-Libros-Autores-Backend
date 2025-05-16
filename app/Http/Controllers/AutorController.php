@@ -1,48 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Models\Autor;
+
+
 
 class AutorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+public function index()
+{
+    return Autor::with('libros')->get();
+}
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+public function store(Request $request)
+{
+    $request->validate(['nombre' => 'required']);
+    return Autor::create($request->all());
+}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+public function show(Autor $autor)
+{
+    return $autor->load('libros');
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+public function update(Request $request, Autor $autor)
+{
+    $autor->update($request->all());
+    return $autor;
+}
+
+public function destroy(Autor $autor)
+{
+    $autor->delete();
+    return response()->noContent();
+}
 }
