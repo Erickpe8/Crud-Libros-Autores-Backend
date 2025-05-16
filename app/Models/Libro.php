@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Libro extends Model
 {
     use HasFactory;
+
+    public function autor()
+{
+    return $this->belongsTo(Autor::class);
+}
+
 }
