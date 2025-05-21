@@ -16,8 +16,17 @@ public function index()
 
 public function store(Request $request)
 {
-    $request->validate(['nombre' => 'required']);
-    return Autor::create($request->all());
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'apellido' => 'required|string|max:255',
+    ]);
+
+    $autor = Autor::create([
+        'nombre' => $request->nombre,
+        'apellido' => $request->apellido,
+    ]);
+
+    return response()->json($autor, 201);
 }
 
 public function show(Autor $autor)

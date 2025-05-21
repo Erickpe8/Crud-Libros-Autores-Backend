@@ -13,17 +13,16 @@ class LibroController extends Controller
         return Libro::with('autor')->get();
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required',
-            'genero' => 'required',
-            'autor_id' => 'required|exists:autors,id'
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'titulo' => 'required',
+        'genero' => 'required',
+        'autor_id' => 'required|exists:autors,id'
+    ]);
 
-        return Libro::create($request->all());
-    }
-
+    return Libro::create($request->all());
+}
     public function show(Libro $libro)
     {
         return $libro->load('autor');
