@@ -34,15 +34,22 @@ public function show(Autor $autor)
     return $autor->load('libros');
 }
 
-public function update(Request $request, Autor $autor)
+public function update(Request $request, $id)
 {
+    $autor = Autor::findOrFail($id);
     $autor->update($request->all());
-    return $autor;
+
+    return response()->json($autor, 200);
+}
+public function destroy($id)
+{
+    $autor = Autor::find($id);
+    if (!$autor) {
+        return response()->json(['message' => 'Autor no encontrado'], 404);
+    }
+
+    $autor->delete();
+    return response()->noContent(); 
 }
 
-public function destroy(Autor $autor)
-{
-    $autor->delete();
-    return response()->noContent();
-}
 }

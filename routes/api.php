@@ -9,7 +9,7 @@ use App\Http\Controllers\LibroController;
 //Api de Autores
 Route::get('/autores', [AutorController::class, 'index']);
 Route::post('/autores', [AutorController::class, 'store']);
-Route::put('/autores/{id}', [AutorController::class, 'put']); 
+Route::put('/autores/{id}', [AutorController::class, 'update']); 
 Route::delete('/autores/{id}', [AutorController::class, 'destroy']);
 
 //Api de Libros
