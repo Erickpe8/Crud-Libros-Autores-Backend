@@ -28,15 +28,19 @@ public function store(Request $request)
         return $libro->load('autor');
     }
 
-    public function update(Request $request, Libro $libro)
+    public function update(Request $request, $id)
     {
+        $libro = Libro::findOrFail($id);
         $libro->update($request->all());
-        return $libro;
+        return response()->json(['message' => 'Libro actualizado con éxito', 'libro' => $libro]);
     }
 
-    public function destroy(Libro $libro)
-    {
-        $libro->delete();
-        return response()->noContent();
-    }
+
+    public function destroy($id)
+{
+    $libro = Libro::findOrFail($id);
+    $libro->delete();
+    return response()->json(['message' => 'Libro eliminado']);
+}
+
 }
