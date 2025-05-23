@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Autor extends Model
 {
     use HasFactory;
-
     protected $fillable = ['nombre', 'apellido'];  
 
     public function libros()
@@ -16,6 +15,3 @@ class Autor extends Model
         return $this->hasMany(Libro::class);
     }  
 }
-
-
-  

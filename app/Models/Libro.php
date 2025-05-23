@@ -15,4 +15,3 @@ class Libro extends Model
         return $this->belongsTo(Autor::class);
     }
 }
-
